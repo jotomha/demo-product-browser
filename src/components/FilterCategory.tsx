@@ -17,9 +17,6 @@ interface Props {
 const FilterCategory = ({ onSelectCategory, selectedCategory }: Props) => {
   const { data, error, load } = useCategories();
   if (error) return null;
-
-  console.log(data, error, load);
-
   return (
     <>
       <Menu>

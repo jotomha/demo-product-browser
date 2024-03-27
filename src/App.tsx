@@ -4,7 +4,7 @@ import ProductDisplay from "./components/ProductDisplay";
 import FilterCategory from "./components/FilterCategory";
 import { useState } from "react";
 
-interface ProductRequest {
+export interface ProductRequest {
   category: string | null;
   search: string | null;
   page: number;
@@ -47,7 +47,9 @@ function App() {
           </ListItem>
         </List>
       </GridItem>
-      <GridItem area="products" bgColor="skyblue" w="100%"></GridItem>
+      <GridItem area="products" bgColor="skyblue" w="100%">
+        <ProductDisplay prodReq={productQuery}></ProductDisplay>
+      </GridItem>
       <GridItem area="cart" bgColor="olive">
         this the cart
       </GridItem>
