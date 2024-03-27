@@ -1,8 +1,18 @@
-import { Grid, GridItem, Heading, List, ListItem } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Grid,
+  GridItem,
+  Heading,
+  List,
+  ListItem,
+} from "@chakra-ui/react";
 import "./App.css";
 import ProductDisplay from "./components/ProductDisplay";
 import FilterCategory from "./components/FilterCategory";
 import { useState } from "react";
+import SearchBar from "./components/SearchBar";
+import PageSelector from "./components/PageSelector";
 
 export interface ProductRequest {
   category: string | null;
@@ -16,7 +26,7 @@ function App() {
     category: null,
     search: null,
     page: 1,
-    prodPerPage: 30,
+    prodPerPage: 16,
   });
 
   return (
@@ -31,7 +41,13 @@ function App() {
         base: "10vh 90vh",
       }}
     >
-      <GridItem area="nav">nav bar</GridItem>
+      <GridItem area="nav">
+        <SearchBar
+          onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
+          placeholder="Search for specific products"
+          width="100vw"
+        />
+      </GridItem>
       <GridItem area="filter" bgColor="tomato" padding="5%">
         <Heading fontSize="2xl" marginBottom={3} margin={5}>
           Filters
@@ -47,7 +63,26 @@ function App() {
           </ListItem>
         </List>
       </GridItem>
-      <GridItem area="products" bgColor="skyblue" w="100%">
+      <GridItem area="products" bgColor="skyblue" w="100%" padding="20px">
+        <Heading fontSize="2xl" margin="10px">
+          Products
+        </Heading>
+        <PageSelector
+          onLeft={() => {
+            setProductQuery({
+              ...productQuery,
+              page: Math.max(productQuery.page - 1, 1),
+            });
+          }}
+          onRight={() => {
+            setProductQuery({ ...productQuery, page: productQuery.page + 1 });
+          }}
+          page={productQuery.page}
+          perPage={productQuery.prodPerPage}
+          onChangePerPage={(t: number) =>
+            setProductQuery({ ...productQuery, prodPerPage: t })
+          }
+        />
         <ProductDisplay prodReq={productQuery}></ProductDisplay>
       </GridItem>
       <GridItem area="cart" bgColor="olive">

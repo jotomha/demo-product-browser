@@ -12,9 +12,6 @@ const ProductDisplay = ({ prodReq }: Props) => {
   if (load) return <Spinner />;
   return (
     <>
-      <Heading fontSize="2xl" margin="10px">
-        Products
-      </Heading>
       <List>
         {data?.map((prod) => (
           <ListItem key={prod.id} paddingY="5px">

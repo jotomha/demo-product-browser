@@ -25,9 +25,11 @@ interface ProductResponse {
 const useProducts = (request: ProductRequest) => {
   const endpoint = `/products${
     request.category ? "/category/" + request.category : ""
-  }${request.search ? "/search?q=" + request.search : ""}?limit=${
-    request.prodPerPage
-  }&skip=${(request.page - 1) * request.prodPerPage}`;
+  }${request.search ? "/search?q=" + request.search : ""}${
+    request.search ? "&" : "?"
+  }limit=${request.prodPerPage}&skip=${
+    (request.page - 1) * request.prodPerPage
+  }`;
 
   const [load, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -47,6 +49,7 @@ const useProducts = (request: ProductRequest) => {
       .then((res) => {
         setData(res.data.products);
         setLoading(false);
+        console.log(res.data);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;

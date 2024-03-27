@@ -31,6 +31,7 @@ const useApi = <T>(
         .then((res) => {
           setData(res.data.results);
           setLoading(false);
+          console.log(res.data);
         })
         .catch((err) => {
           if (err instanceof CanceledError) return;
