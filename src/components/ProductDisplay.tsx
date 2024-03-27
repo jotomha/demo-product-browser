@@ -1,6 +1,7 @@
 import useProducts from "../hooks/useProducts";
-import { Heading, List, ListItem, Spinner } from "@chakra-ui/react";
+import { List, ListItem, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { ProductRequest } from "../App";
+import Product from "./Product";
 
 interface Props {
   prodReq: ProductRequest;
@@ -11,15 +12,11 @@ const ProductDisplay = ({ prodReq }: Props) => {
 
   if (load) return <Spinner />;
   return (
-    <>
-      <List>
-        {data?.map((prod) => (
-          <ListItem key={prod.id} paddingY="5px">
-            {prod.title}
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <SimpleGrid columns={{ md: 1, lg: 2, xl: 3 }} spacing={5} padding="10px">
+      {data?.map((prod) => (
+        <Product prod={prod} key={prod.id} />
+      ))}
+    </SimpleGrid>
   );
 };
 

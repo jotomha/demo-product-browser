@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios, { CanceledError } from "axios";
 import { ProductRequest } from "../App";
 
-interface ProdObj {
+export interface ProdObj {
   id: number;
   title: string;
   description: string;
