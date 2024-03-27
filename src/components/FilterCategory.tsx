@@ -1,4 +1,12 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Button,
+  List,
+  ListItem,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 import useCategories from "../hooks/useCategories";
 
 interface Props {
@@ -9,27 +17,48 @@ interface Props {
 const FilterCategory = ({ onSelectCategory, selectedCategory }: Props) => {
   const { data, error, load } = useCategories();
   if (error) return null;
+
+  console.log(data, error, load);
+
   return (
-    <Menu>
-      {({ isOpen }) => (
-        <>
-          <MenuButton isActive={isOpen} as={Button}>
-            {selectedCategory ? selectedCategory : "Categories"}
-          </MenuButton>
-          <MenuList>
-            {selectedCategory && <MenuItem key="def">All</MenuItem>}
-            {!data && (
-              <MenuItem color="red.50">Error loading categories.</MenuItem>
-            )}
-            {data?.map((iter, ind) => (
-              <MenuItem key={ind} onClick={() => onSelectCategory(iter)}>
-                {iter}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </>
-      )}
-    </Menu>
+    <>
+      <Menu>
+        {({ isOpen }) => (
+          <>
+            <MenuButton isActive={isOpen} as={Button}>
+              {selectedCategory ? selectedCategory : "Categories"}
+            </MenuButton>
+            <MenuList>
+              {selectedCategory && (
+                <MenuItem key="def" onClick={() => onSelectCategory("")}>
+                  All
+                </MenuItem>
+              )}
+              {load && (
+                <MenuItem key="load" fontStyle="italic">
+                  Loading categories.
+                </MenuItem>
+              )}
+              {!data && !load && (
+                <MenuItem key="err" color="red.50">
+                  Error loading categories.
+                </MenuItem>
+              )}
+              {data &&
+                data.map((iter, ind) => (
+                  <MenuItem
+                    key={ind}
+                    onClick={() => onSelectCategory(iter)}
+                    fontWeight={iter === selectedCategory ? "bold" : ""}
+                  >
+                    {iter}
+                  </MenuItem>
+                ))}
+            </MenuList>
+          </>
+        )}
+      </Menu>
+    </>
   );
 };
 

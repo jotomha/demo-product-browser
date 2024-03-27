@@ -47,9 +47,7 @@ function App() {
           </ListItem>
         </List>
       </GridItem>
-      <GridItem area="products" bgColor="skyblue" w="100%">
-        <ProductDisplay page={productQuery.page} perPage={productQuery.page} />
-      </GridItem>
+      <GridItem area="products" bgColor="skyblue" w="100%"></GridItem>
       <GridItem area="cart" bgColor="olive">
         this the cart
       </GridItem>
