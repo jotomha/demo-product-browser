@@ -1,3 +1,5 @@
+import useApi from "./useApi";
+
 export interface ProdObj {
   id: number;
   title: string;
@@ -10,6 +12,16 @@ export interface ProdObj {
   images: string[];
 }
 
-const useProducts = (search?: string, deps?: any[]) => {};
+//
+const useProducts = (pageNumber: number, perPage: number, search?: string) => {
+  return useApi<ProdObj>(
+    `/products
+    ${search ? "/search?q=" + search : ""}
+    ?limit=${perPage}
+    &skip=${(pageNumber - 1) * perPage}
+  `,
+    [perPage, pageNumber]
+  );
+};
 
 export default useProducts;

@@ -8,8 +8,8 @@ interface Response<T> {
 
 const useApi = <T>(
   endpoint: string,
-  requestConfig?: AxiosRequestConfig,
-  deps?: any[]
+  deps?: any[],
+  requestConfig?: AxiosRequestConfig
 ) => {
   const [load, setLoading] = useState(false);
   const [error, setError] = useState("");
