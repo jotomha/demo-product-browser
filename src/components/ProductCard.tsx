@@ -60,7 +60,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
               <Text fontSize="1rem">${prod.price}</Text>
             </HStack>
             <ShortenedText
-              children={prod.description}
+              tex={prod.description}
               limit={25}
               appendText="(see more)"
             ></ShortenedText>

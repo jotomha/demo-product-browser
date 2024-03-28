@@ -1,16 +1,16 @@
 import { Text } from "@chakra-ui/react";
 interface Props {
-  children: string;
+  tex: string;
   limit: number;
   appendText?: string;
 }
 
-const ShortenedText = ({ children, limit, appendText = "" }: Props) => {
+const ShortenedText = ({ tex, limit, appendText = "" }: Props) => {
   return (
     <>
       <Text>
-        {children.substring(0, Math.min(children.length, limit))}
-        {children.length < limit ? "" : "..."}
+        {tex.substring(0, Math.min(tex.length, limit))}
+        {tex.length < limit ? "" : "..."}
       </Text>
       <Text color="lightblue" opacity="50%" fontStyle="italic">
         {appendText}
