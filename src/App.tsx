@@ -115,7 +115,14 @@ function App() {
             // potentially something like combining the CartProduct and CartPost objects into one object to avoid this mapping business.
             let postProducts = productToPost(cart.products);
             if (postProducts) {
-              postProducts.push({ id: itemId, quantity: itemQuantity });
+              const index = postProducts.findIndex((p) => p.id === itemId);
+              postProducts.push({
+                id: itemId,
+                quantity:
+                  itemQuantity +
+                  (index === -1 ? 0 : postProducts[index].quantity),
+              });
+              if (index !== -1) postProducts.splice(index, 1);
             } else {
               postProducts = [{ id: itemId, quantity: itemQuantity }];
             }
