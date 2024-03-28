@@ -1,5 +1,6 @@
 import { Box, Button } from "@chakra-ui/react";
 import SearchBar from "./SearchBar";
+import { stringToNumber } from "../services/stringToNumber";
 
 interface Props {
   onLeft: () => void;
@@ -31,11 +32,7 @@ const PageSelector = ({
         Right
       </Button>
       <SearchBar
-        onSearch={(search) => {
-          if (!isNaN(parseInt(search))) {
-            onChangePerPage(parseInt(search));
-          } else onChangePerPage(16);
-        }}
+        onSearch={(search) => onChangePerPage(stringToNumber(search, 16))}
         placeholder={
           perPage.toString() + ` product${perPage === 1 ? "" : "s"} per page`
         }
