@@ -14,6 +14,7 @@ import { ProdObj } from "../hooks/useProducts";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { stringToNumber } from "../services/stringToNumber";
+import ShortenedText from "./ShortenedText";
 import "./ProductCard.css";
 
 interface Props {
@@ -47,9 +48,11 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
             <Box fontSize="0.8rem">{prod.rating}/5</Box>
             <Text fontSize="1rem">${prod.price}</Text>
           </HStack>
-          <Text height="1fr" overflowY="scroll">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          </Text>
+          <ShortenedText
+            children={prod.description}
+            limit={25}
+            appendText="(see more)"
+          ></ShortenedText>
         </CardBody>
         <CardFooter display="flex" justify="space-between" paddingTop="0px">
           <SearchBar
