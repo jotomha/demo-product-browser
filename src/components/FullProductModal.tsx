@@ -51,8 +51,8 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => (
           </Box>
         </Stack>
       </ModalBody>
-      <ModalFooter>
-        <Text></Text>
+      <ModalFooter display="flex" justifyContent="space-between">
+        <Text>{prod.rating}/5 stars</Text>
         <Button
           onClick={() => {
             onAdd(1);
