@@ -1,12 +1,4 @@
-import {
-  Button,
-  List,
-  ListItem,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/react";
+import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import useCategories from "../hooks/useCategories";
 
 interface Props {
@@ -19,7 +11,7 @@ const FilterCategory = ({ onSelectCategory, selectedCategory }: Props) => {
   if (error) return null;
   return (
     <>
-      <Menu>
+      <Menu preventOverflow={false}>
         {({ isOpen }) => (
           <>
             <MenuButton isActive={isOpen} as={Button}>
