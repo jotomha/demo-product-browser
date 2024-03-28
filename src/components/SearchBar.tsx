@@ -5,10 +5,10 @@ import "./SearchBar.css";
 interface Props {
   onSearch: (searchText: string) => void;
   placeholder: string;
-  width: string;
+  width?: string;
 }
 
-const SearchBar = ({ onSearch, placeholder, width }: Props) => {
+const SearchBar = ({ onSearch, placeholder, width = "100px" }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
 
   return (
@@ -25,6 +25,7 @@ const SearchBar = ({ onSearch, placeholder, width }: Props) => {
           display="inline"
           width={width}
           borderColor="black"
+          padding="5px"
         />
       </InputGroup>
     </form>
