@@ -147,7 +147,9 @@ function App() {
           alignItems="center"
         >
           <Text>Total price: ${cart.total ? cart.total : 0}</Text>
-          <Button onClick={() => getCart(setCart, [])}>Clear Cart</Button>
+          {/*Note: the functionality of these two buttons in this demo application is the same. In reality this would not be the case.*/}
+          <Button onClick={() => getCart(setCart, [])}>Checkout</Button>
+          <Button onClick={() => getCart(setCart, [])}>Empty Cart</Button>
         </Box>
       </GridItem>
     </Grid>

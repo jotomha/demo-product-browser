@@ -49,6 +49,8 @@ const CartDisplay = ({ cart, onChangeCart }: Props) => {
           }}
         />
       ))}
+      {!cart ||
+        (!cart.products && <text>Your cart is empty! Add an item.</text>)}
     </VStack>
   );
 };
