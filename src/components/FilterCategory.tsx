@@ -17,7 +17,7 @@ const FilterCategory = ({ onSelectCategory, selectedCategory }: Props) => {
             <MenuButton isActive={isOpen} as={Button}>
               {selectedCategory ? selectedCategory : "Categories"}
             </MenuButton>
-            <MenuList>
+            <MenuList overflow="auto" height="50vh">
               {selectedCategory && (
                 <MenuItem key="def" onClick={() => onSelectCategory("")}>
                   All
