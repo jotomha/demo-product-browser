@@ -10,6 +10,7 @@ interface Props {
 
 const CategoryDisplay = ({ onSelectCategory, selectedCategory }: Props) => {
   const { data, error, load } = useCategories();
+  data.sort();
   if (error) return null;
   return (
     <List padding="10px">
