@@ -36,7 +36,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
         overflow="hidden"
         borderRadius="10px"
         className="product-card"
-        minHeight="200px"
+        minHeight="250px"
         minWidth="300px"
         height="fit"
       >
