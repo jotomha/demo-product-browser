@@ -7,7 +7,7 @@ interface Props {
 const StarRating = ({ rating }: Props) => {
   return (
     <Box width="auto" flexDir="row" alignItems="center">
-      {Array.from({ length: rating }, (_item, index) => (
+      {Array.from({ length: Math.round(rating) }, (_item, index) => (
         <Box className="star" key={index} />
       ))}
       <Box display="inline-block" marginLeft="5px">
