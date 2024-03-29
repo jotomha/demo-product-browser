@@ -45,6 +45,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
         className="product-card"
         minHeight="200px"
         minWidth="300px"
+        height="fit"
       >
         <Image
           src={prod.thumbnail}
