@@ -101,11 +101,13 @@ function App() {
           alignItems="center"
           marginBottom="10px"
         >
-          <SearchBar
-            onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
-            placeholder="Search for specific products"
-            width="100%"
-          />
+          <Box width="50%">
+            <SearchBar
+              onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
+              placeholder="Search for specific products"
+              width="100%"
+            />
+          </Box>
           <PageSelector
             onLeft={() => {
               setProductQuery({

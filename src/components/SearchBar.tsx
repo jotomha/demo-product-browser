@@ -8,7 +8,7 @@ interface Props {
   width?: string;
 }
 
-const SearchBar = ({ onSearch, placeholder, width = "100px" }: Props) => {
+const SearchBar = ({ onSearch, placeholder, width = "auto" }: Props) => {
   const ref = useRef<HTMLInputElement>(null);
 
   return (
