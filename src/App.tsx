@@ -55,13 +55,17 @@ function App() {
       height="100%"
       width="100%"
     >
-      <GridItem area="nav" padding="10px" maxHeight="100px">
+      <GridItem
+        area="nav"
+        paddingTop="10px"
+        maxHeight="100px"
+        display="flex"
+        flexDirection="column"
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
         <Heading marginBottom="8px">Demo Product Browser</Heading>
-        <SearchBar
-          onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
-          placeholder="Search for specific products"
-          width="100%"
-        />
+        <Box bgColor="black" width="100%" height="100%"></Box>
       </GridItem>
 
       <GridItem area="filter" padding="5%">
@@ -91,22 +95,34 @@ function App() {
         <Heading fontSize="2xl" margin="10px">
           Products
         </Heading>
-        <PageSelector
-          onLeft={() => {
-            setProductQuery({
-              ...productQuery,
-              page: Math.max(productQuery.page - 1, 1),
-            });
-          }}
-          onRight={() => {
-            setProductQuery({ ...productQuery, page: productQuery.page + 1 });
-          }}
-          page={productQuery.page}
-          perPage={productQuery.prodPerPage}
-          onChangePerPage={(t: number) =>
-            setProductQuery({ ...productQuery, prodPerPage: t })
-          }
-        />
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          marginBottom="10px"
+        >
+          <SearchBar
+            onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
+            placeholder="Search for specific products"
+            width="100%"
+          />
+          <PageSelector
+            onLeft={() => {
+              setProductQuery({
+                ...productQuery,
+                page: Math.max(productQuery.page - 1, 1),
+              });
+            }}
+            onRight={() => {
+              setProductQuery({ ...productQuery, page: productQuery.page + 1 });
+            }}
+            page={productQuery.page}
+            perPage={productQuery.prodPerPage}
+            onChangePerPage={(t: number) =>
+              setProductQuery({ ...productQuery, prodPerPage: t })
+            }
+          />
+        </Box>
         <ProductDisplay
           prodReq={productQuery}
           onAddItem={(itemId: number, itemQuantity: number) => {

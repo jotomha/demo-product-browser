@@ -18,7 +18,7 @@ const PageSelector = ({
   perPage,
 }: Props) => {
   return (
-    <>
+    <Box>
       <Button onClick={onLeft}>Left</Button>
       <Box
         display="inline"
@@ -38,7 +38,7 @@ const PageSelector = ({
         }
         width="200px"
       />
-    </>
+    </Box>
   );
 };
 
