@@ -8,6 +8,7 @@ import CartDisplay, { Cart, CartProduct } from "./components/CartDisplay";
 import { getCart } from "./hooks/useCart";
 import { productToPost } from "./services/productToPost";
 import CategoryDisplay from "./components/CategoryDisplay";
+import SavingBadge from "./components/SavingBadge";
 
 export interface ProductRequest {
   category: string | null;
@@ -56,7 +57,7 @@ function App() {
         alignItems="center"
       >
         <Heading marginBottom="12px">Demo Product Browser</Heading>
-        <Box bgColor="rgba(0,0,0,0.5)" width="100%" height="100%">
+        <Box bgColor="rgba(0,0,0,0.3)" width="100%" height="100%">
           <CategoryDisplay
             selectedCategory={productQuery.category}
             onSelectCategory={(t) =>
@@ -153,7 +154,18 @@ function App() {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Text>Total price: ${cart.total ? cart.total : 0}</Text>
+          <Box>
+            <Text>
+              Total price: ${cart.discountedTotal ? cart.discountedTotal : 0}
+            </Text>
+            {cart.discountedTotal && (
+              <SavingBadge
+                preText="Saving $"
+                number={(cart.total - cart.discountedTotal).toString()}
+                postText="!"
+              />
+            )}
+          </Box>
           {/*Note: the functionality of these two buttons in this demo application is the same. In reality this would not be the case.*/}
           <Button onClick={() => getCart(setCart, [])}>Checkout</Button>
           <Button onClick={() => getCart(setCart, [])}>Empty Cart</Button>

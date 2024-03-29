@@ -22,7 +22,7 @@ export interface Cart {
 
 interface Props {
   cart: Cart;
-  onChangeCart: (CartProduct: []) => void;
+  onChangeCart: (prodList: CartProduct[]) => void;
 }
 
 const CartDisplay = ({ cart, onChangeCart }: Props) => {
@@ -41,8 +41,6 @@ const CartDisplay = ({ cart, onChangeCart }: Props) => {
             onChangeCart(cart.products?.filter((item) => item.id != prod.id));
           }}
           onUpdateQuantity={(newQuantity: number) => {
-            //I am aware that this appears as an error, as does the above call of onChangeCart, but I'm really not sure why. I spent an hour trying to fix this
-            // and I tried multiple different methods to remove the typecheck error but it comes down to some TypeScript semantic that I'm really not sure about.
             onChangeCart(
               cart.products.map((item) =>
                 item.id != prod.id ? item : { ...item, quantity: newQuantity }
