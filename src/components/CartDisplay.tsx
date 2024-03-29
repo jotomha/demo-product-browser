@@ -7,6 +7,8 @@ export interface CartProduct {
   price: number;
   quantity: number;
   total: number;
+  discountPercentage: number;
+  discountedPrice: number;
 }
 
 export interface Cart {

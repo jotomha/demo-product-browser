@@ -2,6 +2,7 @@ import { Button, Card, Text } from "@chakra-ui/react";
 import { CartProduct } from "./CartDisplay";
 import SearchBar from "./SearchBar";
 import { stringToNumber } from "../services/stringToNumber";
+import DiscountedText from "./DiscountedText";
 
 interface Props {
   product: CartProduct;
@@ -53,7 +54,12 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }: Props) => {
       >
         &gt;
       </Button>
-      <Text>${product.total}</Text>
+      <DiscountedText
+        normalPrice={product.price}
+        discountPerc={product.discountPercentage}
+        discountPrice={product.discountedPrice}
+        showDiscount={true}
+      />
     </Card>
   );
 };
