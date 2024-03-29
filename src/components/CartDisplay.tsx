@@ -1,4 +1,4 @@
-import { VStack } from "@chakra-ui/react";
+import { VStack, Text } from "@chakra-ui/react";
 import CartItem from "./CartItem";
 
 export interface CartProduct {
@@ -50,7 +50,7 @@ const CartDisplay = ({ cart, onChangeCart }: Props) => {
         />
       ))}
       {!cart ||
-        (!cart.products && <text>Your cart is empty! Add an item.</text>)}
+        (!cart.products && <Text>Your cart is empty! Add an item.</Text>)}
     </VStack>
   );
 };
