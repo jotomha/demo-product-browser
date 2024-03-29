@@ -1,0 +1,11 @@
+.category {
+  transition: color 0.2s;
+  color: darkcyan;
+  font-style: italic;
+  text-align: center;
+}
+
+.category:hover {
+  color: skyblue;
+  cursor: pointer;
+}

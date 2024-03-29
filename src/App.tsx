@@ -17,6 +17,7 @@ import PageSelector from "./components/PageSelector";
 import CartDisplay, { Cart, CartProduct } from "./components/CartDisplay";
 import { getCart } from "./hooks/useCart";
 import { productToPost } from "./services/productToPost";
+import CategoryDisplay from "./components/CategoryDisplay";
 
 export interface ProductRequest {
   category: string | null;
@@ -44,13 +45,13 @@ function App() {
   return (
     <Grid
       templateAreas={{
-        base: '"nav nav nav" "filter products cart"',
+        base: '"nav nav" "products cart"',
       }}
       templateColumns={{
-        base: "150px 0.7fr 0.3fr",
+        base: "0.75fr 0.25fr",
       }}
       templateRows={{
-        base: "0.1fr 1fr",
+        base: "0.15fr 1fr",
       }}
       height="100%"
       width="100%"
@@ -64,24 +65,15 @@ function App() {
         justifyContent="space-evenly"
         alignItems="center"
       >
-        <Heading marginBottom="8px">Demo Product Browser</Heading>
-        <Box bgColor="black" width="100%" height="100%"></Box>
-      </GridItem>
-
-      <GridItem area="filter" padding="5%">
-        <Heading fontSize="2xl" marginBottom={3} margin={5}>
-          Filters
-        </Heading>
-        <List>
-          <ListItem>
-            <FilterCategory
-              selectedCategory={productQuery.category}
-              onSelectCategory={(t) =>
-                setProductQuery({ ...productQuery, category: t })
-              }
-            />
-          </ListItem>
-        </List>
+        <Heading marginBottom="12px">Demo Product Browser</Heading>
+        <Box bgColor="rgba(0,0,0,0.5)" width="100%" height="100%">
+          <CategoryDisplay
+            selectedCategory={productQuery.category}
+            onSelectCategory={(t) =>
+              setProductQuery({ ...productQuery, category: t })
+            }
+          />
+        </Box>
       </GridItem>
 
       <GridItem
