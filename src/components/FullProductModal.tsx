@@ -16,6 +16,7 @@ import { ProdObj } from "../hooks/useProducts";
 import { clamp } from "../services/clamp.ts";
 import { useState } from "react";
 import StarRating from "./StarRating.tsx";
+import DiscountedText from "./DiscountedText.tsx";
 
 interface Props {
   prod: ProdObj;
@@ -36,7 +37,19 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(1px)" />
       <ModalContent width="40vw">
-        <ModalHeader>{prod.title}</ModalHeader>
+        <ModalHeader
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          paddingRight="20%"
+        >
+          {prod.title}
+          <DiscountedText
+            normalPrice={prod.price}
+            discountPerc={prod.discountPercentage}
+            showDiscount={true}
+          />
+        </ModalHeader>
         <ModalCloseButton />
         <Box position="relative">
           <Button
@@ -95,7 +108,7 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
               onClose();
             }}
           >
-            Add to cart (${prod.price})
+            Add to cart
           </Button>
         </ModalFooter>
       </ModalContent>

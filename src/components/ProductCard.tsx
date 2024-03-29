@@ -3,19 +3,11 @@ import {
   HStack,
   Image,
   CardBody,
-  Box,
   Button,
   Heading,
   CardFooter,
   Text,
   Stack,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
 import { ProdObj } from "../hooks/useProducts";
@@ -26,6 +18,7 @@ import ShortenedText from "./ShortenedText";
 import "./ProductCard.css";
 import FullProductModal from "./FullProductModal";
 import StarRating from "./StarRating";
+import DiscountedText from "./DiscountedText";
 
 interface Props {
   prod: ProdObj;
@@ -59,7 +52,11 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
             <Heading fontSize="1.5rem">{prod.title}</Heading>
             <HStack justify="space-between">
               <StarRating rating={prod.rating}></StarRating>
-              <Text fontSize="1rem">${prod.price}</Text>
+              <DiscountedText
+                normalPrice={prod.price}
+                discountPerc={prod.discountPercentage}
+                showDiscount={false}
+              ></DiscountedText>
             </HStack>
             <ShortenedText
               tex={prod.description}

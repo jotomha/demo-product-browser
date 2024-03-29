@@ -1,16 +1,6 @@
-import {
-  Box,
-  Button,
-  Grid,
-  GridItem,
-  Heading,
-  List,
-  ListItem,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import "./App.css";
 import ProductDisplay from "./components/ProductDisplay";
-import FilterCategory from "./components/FilterCategory";
 import { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import PageSelector from "./components/PageSelector";

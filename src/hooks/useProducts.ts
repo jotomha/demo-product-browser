@@ -12,6 +12,7 @@ export interface ProdObj {
   category: string;
   thumbnail: string;
   images: string[];
+  discountPercentage: number;
 }
 
 interface ProductResponse {
