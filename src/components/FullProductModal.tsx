@@ -15,6 +15,7 @@ import {
 import { ProdObj } from "../hooks/useProducts";
 import { clamp } from "../services/clamp.ts";
 import { useState } from "react";
+import StarRating from "./StarRating.tsx";
 
 interface Props {
   prod: ProdObj;
@@ -37,11 +38,12 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
       <ModalContent width="40vw">
         <ModalHeader>{prod.title}</ModalHeader>
         <ModalCloseButton />
-        <Box>
+        <Box position="relative">
           <Button
             position="absolute"
             top="50%"
-            backgroundColor="rgba(0,0,0,0.5)"
+            left="5px"
+            backgroundColor="rgba(0,0,0,0.7)"
             color="white"
             onClick={onLeft}
           >
@@ -51,8 +53,8 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
           <Button
             position="absolute"
             top="50%"
-            right="0%"
-            backgroundColor="rgba(0,0,0,0.5)"
+            right="5px"
+            backgroundColor="rgba(0,0,0,0.7)"
             color="white"
             onClick={onRight}
           >
@@ -67,7 +69,8 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
             height="100%"
           >
             <Text fontSize="1.2rem">
-              Description: <br />
+              <Text as="b">Description:</Text>
+              <br />
               {prod.description}
             </Text>
             <Box>
@@ -80,8 +83,12 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
             </Box>
           </Stack>
         </ModalBody>
-        <ModalFooter display="flex" justifyContent="space-between">
-          <Text>{prod.rating}/5 stars</Text>
+        <ModalFooter
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <StarRating rating={prod.rating} />
           <Button
             onClick={() => {
               onAdd(1);
