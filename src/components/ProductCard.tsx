@@ -25,6 +25,7 @@ import { stringToNumber } from "../services/stringToNumber";
 import ShortenedText from "./ShortenedText";
 import "./ProductCard.css";
 import FullProductModal from "./FullProductModal";
+import StarRating from "./StarRating";
 
 interface Props {
   prod: ProdObj;
@@ -56,7 +57,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
           <CardBody paddingBottom="0px" onClick={onOpen}>
             <Heading fontSize="1.5rem">{prod.title}</Heading>
             <HStack justify="space-between">
-              <Box fontSize="0.8rem">{prod.rating}/5</Box>
+              <StarRating rating={prod.rating}></StarRating>
               <Text fontSize="1rem">${prod.price}</Text>
             </HStack>
             <ShortenedText
