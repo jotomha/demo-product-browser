@@ -1,7 +1,7 @@
 import { Box, Button, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
 import "./App.css";
 import ProductDisplay from "./components/ProductDisplay";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import PageSelector from "./components/PageSelector";
 import CartDisplay, { Cart, CartProduct } from "./components/CartDisplay";
@@ -27,19 +27,22 @@ function App() {
 
   const [cart, setCart] = useState<Cart>({} as Cart);
 
-  /* were you able to save cart states on the server, this could be used to initially load the cart with a certain id. Keep dependencies empty to only 
-  run this initial loading once.
   useEffect(() => {
-    getCart(setCart, []);
-  }, []); */
+    /* were you able to save cart states on the server, this could be used to initially load the cart with a certain id. Keep dependencies empty to only 
+  run this initial loading once.
+    getCart(setCart, []); */
+    setProductQuery({ ...productQuery, page: 1 }); //Anytime the category changes, reset the page to 1 (don't want to stay on page 100 if there's only 5 products to display)
+  }, [productQuery.category]);
 
   return (
     <Grid
       templateAreas={{
-        base: '"nav nav" "products cart"',
+        base: '"nav" "products"',
+        lg: '"nav nav" "products cart"',
       }}
       templateColumns={{
-        base: "0.75fr 0.25fr",
+        base: "1fr 0fr",
+        lg: "0.75fr 0.25fr",
       }}
       templateRows={{
         base: "0.15fr 1fr",
@@ -50,14 +53,16 @@ function App() {
       <GridItem
         area="nav"
         paddingTop="10px"
-        maxHeight="100px"
+        maxHeight="300px"
         display="flex"
         flexDirection="column"
         justifyContent="space-evenly"
         alignItems="center"
       >
-        <Heading marginBottom="12px">Demo Product Browser</Heading>
-        <Box bgColor="rgba(0,0,0,0.3)" width="100%" height="100%">
+        <Heading marginBottom="12px" textAlign="center">
+          Demo Product Browser
+        </Heading>
+        <Box bgColor="rgba(0,0,0,0.3)" width="100%">
           <CategoryDisplay
             selectedCategory={productQuery.category}
             onSelectCategory={(t) =>
@@ -84,7 +89,10 @@ function App() {
           alignItems="center"
           marginBottom="10px"
         >
-          <Box width="50%">
+          <Box
+            display={{ base: "block", md: "inline" }}
+            width={{ base: "100%", md: "50%" }}
+          >
             <SearchBar
               onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
               placeholder="Search for specific products"
@@ -111,30 +119,31 @@ function App() {
         <ProductDisplay
           prodReq={productQuery}
           onAddItem={(itemId: number, itemQuantity: number) => {
-            //This absolutely horrendous chunk of code here adds the new product to a list. I wasn't sure how to complete this map of CartProduct objects
-            // to CartPost objects inline getCart() so I just opted for this, which also handles some null checking. There's definitely a better way here;
-            // potentially something like combining the CartProduct and CartPost objects into one object to avoid this mapping business.
             let postProducts = productToPost(cart.products);
             if (postProducts) {
               const index = postProducts.findIndex((p) => p.id === itemId);
-              postProducts.push({
-                id: itemId,
-                quantity:
-                  itemQuantity +
-                  (index === -1 ? 0 : postProducts[index].quantity),
-              });
-              if (index !== -1) postProducts.splice(index, 1);
+              if (index < 0) {
+                postProducts.push({
+                  id: itemId,
+                  quantity: itemQuantity,
+                });
+              } else {
+                postProducts[index] = {
+                  ...postProducts[index],
+                  quantity: postProducts[index].quantity + itemQuantity,
+                };
+              }
             } else {
               postProducts = [{ id: itemId, quantity: itemQuantity }];
             }
             getCart(setCart, postProducts);
           }}
-        ></ProductDisplay>
+        />
       </GridItem>
 
       <GridItem
         area="cart"
-        display="flex"
+        display={{ base: "none", lg: "flex" }}
         flexDirection="column"
         justifyContent="space-between"
         padding="10px"
