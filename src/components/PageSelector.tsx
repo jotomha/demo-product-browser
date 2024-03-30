@@ -19,25 +19,30 @@ const PageSelector = ({
 }: Props) => {
   return (
     <Box>
-      <Button onClick={onLeft}>Left</Button>
-      <Box
-        display="inline"
-        marginLeft="10px"
-        marginRight="10px"
-        fontWeight={"bold"}
-      >
-        Page {page}
+      <Box display="inline-flex" alignItems="center">
+        <Button onClick={onLeft}>Left</Button>
+        <Box
+          display="inline"
+          marginLeft="5px"
+          marginRight="5px"
+          fontWeight="bold"
+          textAlign="center"
+        >
+          {page}
+        </Box>
+        <Button onClick={onRight} marginRight="10px">
+          Right
+        </Button>
       </Box>
-      <Button onClick={onRight} marginRight="10px">
-        Right
-      </Button>
-      <SearchBar
-        onSearch={(search) => onChangePerPage(stringToNumber(search, 16))}
-        placeholder={
-          perPage.toString() + ` product${perPage === 1 ? "" : "s"} per page`
-        }
-        width="200px"
-      />
+      <Box display={{ base: "none", md: "inline" }}>
+        <SearchBar
+          onSearch={(search) => onChangePerPage(stringToNumber(search, 16))}
+          placeholder={
+            perPage.toString() + ` product${perPage === 1 ? "" : "s"} per page`
+          }
+          width="200px"
+        />
+      </Box>
     </Box>
   );
 };

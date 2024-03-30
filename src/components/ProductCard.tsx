@@ -9,6 +9,7 @@ import {
   Text,
   Stack,
   useDisclosure,
+  Box,
 } from "@chakra-ui/react";
 import { ProdObj } from "../hooks/useProducts";
 import SearchBar from "./SearchBar";
@@ -36,8 +37,8 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
         overflow="hidden"
         borderRadius="10px"
         className="product-card"
-        minHeight="250px"
-        minWidth="300px"
+        minHeight={{ base: "300px", lg: "250px" }}
+        minWidth={{ base: "100%", lg: "300px" }}
         height="fit"
       >
         <Image
@@ -47,29 +48,45 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
           maxHeight={{ base: "100%" }}
           alt={prod.title}
         />
-        <Stack width="100%">
-          <CardBody paddingBottom="0px" onClick={onOpen}>
-            <Heading fontSize="1.5rem">{prod.title}</Heading>
-            <HStack justify="space-between">
+        <Stack width="60%">
+          <CardBody padding={{ base: "13px", lg: "20px" }} onClick={onOpen}>
+            <Heading
+              fontSize={{ base: "1.2rem", md: "1.5rem" }}
+              overflowWrap="break-word"
+              maxWidth={"100%"}
+            >
+              {prod.title}
+            </Heading>
+            <Stack
+              justify={{ base: "space-evenly", lg: "space-between" }}
+              flexDirection={{ base: "column", lg: "row" }}
+              marginBottom={{ base: "5%", sm: "0px" }}
+            >
               <StarRating rating={prod.rating}></StarRating>
               <DiscountedText
                 normalPrice={prod.price}
                 discountPerc={prod.discountPercentage}
                 showDiscount={false}
               ></DiscountedText>
-            </HStack>
+            </Stack>
             <ShortenedText
-              tex={prod.description}
+              txt={prod.description}
               limit={25}
               appendText="(see more)"
             ></ShortenedText>
           </CardBody>
-          <CardFooter display="flex" justify="space-between" paddingTop="0px">
-            <SearchBar
-              onSearch={(t) => setCartAddAmount(stringToNumber(t, 1))}
-              placeholder={cartAddAmount.toString()}
-              width="50px"
-            ></SearchBar>
+          <CardFooter
+            display="flex"
+            justify={{ base: "center", sm: "right" }}
+            paddingTop="0px"
+          >
+            <Box display={{ base: "none", sm: "inline" }} marginRight="5%">
+              <SearchBar
+                onSearch={(t) => setCartAddAmount(stringToNumber(t, 1))}
+                placeholder={cartAddAmount.toString()}
+                width="50px"
+              />
+            </Box>
             <Button
               wordBreak="break-word"
               onClick={() => {
