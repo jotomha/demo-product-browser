@@ -1,12 +1,10 @@
 import {
   Card,
-  HStack,
   Image,
   CardBody,
   Button,
   Heading,
   CardFooter,
-  Text,
   Stack,
   useDisclosure,
   Box,

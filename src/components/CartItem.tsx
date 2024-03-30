@@ -1,7 +1,5 @@
 import { Box, Button, Card, Text } from "@chakra-ui/react";
 import { CartProduct } from "./CartDisplay";
-import SearchBar from "./SearchBar";
-import { stringToNumber } from "../services/stringToNumber";
 import DiscountedText from "./DiscountedText";
 
 interface Props {
