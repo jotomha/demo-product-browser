@@ -18,8 +18,17 @@ const PageSelector = ({
   perPage,
 }: Props) => {
   return (
-    <Box>
-      <Box display="inline-flex" alignItems="center">
+    <Box
+      display="flex"
+      marginLeft={{ base: "0px", sm: "20px" }}
+      width={{ base: "100%", sm: "auto" }}
+    >
+      <Box
+        display="inline-flex"
+        justifyContent="space-between"
+        alignItems="center"
+        width="100%"
+      >
         <Button onClick={onLeft}>Left</Button>
         <Box
           display="inline"
@@ -37,10 +46,8 @@ const PageSelector = ({
       <Box display={{ base: "none", md: "inline" }}>
         <SearchBar
           onSearch={(search) => onChangePerPage(stringToNumber(search, 16))}
-          placeholder={
-            perPage.toString() + ` product${perPage === 1 ? "" : "s"} per page`
-          }
-          width="200px"
+          placeholder={perPage.toString() + ` per page`}
+          width="100px"
         />
       </Box>
     </Box>

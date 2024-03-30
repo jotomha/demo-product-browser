@@ -24,7 +24,7 @@ function App() {
     page: 1,
     prodPerPage: 16,
   });
-
+  const [cartOpen, setCartOpen] = useState(false);
   const [cart, setCart] = useState<Cart>({} as Cart);
 
   useEffect(() => {
@@ -54,6 +54,7 @@ function App() {
         area="nav"
         paddingTop="10px"
         maxHeight="300px"
+        minWidth="100%"
         display="flex"
         flexDirection="column"
         justifyContent="space-evenly"
@@ -85,13 +86,14 @@ function App() {
         </Heading>
         <Box
           display="flex"
+          flexDir={{ base: "column", sm: "row" }}
           justifyContent="space-between"
-          alignItems="center"
+          alignItems="left"
           marginBottom="10px"
         >
           <Box
             display={{ base: "block", md: "inline" }}
-            width={{ base: "100%", md: "50%" }}
+            width={{ base: "100%" }}
           >
             <SearchBar
               onSearch={(t) => setProductQuery({ ...productQuery, search: t })}
@@ -99,6 +101,7 @@ function App() {
               width="100%"
             />
           </Box>
+          <Box width={{ base: "100%", sm: "0%" }} height="5px" />
           <PageSelector
             onLeft={() => {
               setProductQuery({
@@ -107,7 +110,10 @@ function App() {
               });
             }}
             onRight={() => {
-              setProductQuery({ ...productQuery, page: productQuery.page + 1 });
+              setProductQuery({
+                ...productQuery,
+                page: productQuery.page + 1,
+              });
             }}
             page={productQuery.page}
             perPage={productQuery.prodPerPage}
@@ -147,6 +153,7 @@ function App() {
         flexDirection="column"
         justifyContent="space-between"
         padding="10px"
+        width="100%"
       >
         <Heading fontSize="2xl" margin="10px">
           Your Cart
