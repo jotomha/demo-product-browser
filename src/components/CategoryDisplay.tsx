@@ -1,6 +1,6 @@
-import { Box, HStack, List, ListItem, StackDivider } from "@chakra-ui/react";
+import { HStack, List, ListItem, StackDivider } from "@chakra-ui/react";
 import useCategories from "../hooks/useCategories";
-import "./CategoryDisplay.css";
+import "../styles/CategoryDisplay.css";
 import { stripText } from "../services/stripText";
 
 interface Props {
