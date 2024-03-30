@@ -14,7 +14,7 @@ import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { stringToNumber } from "../services/stringToNumber";
 import ShortenedText from "./ShortenedText";
-import "./ProductCard.css";
+import "../styles/ProductCard.css";
 import FullProductModal from "./FullProductModal";
 import StarRating from "./StarRating";
 import DiscountedText from "./DiscountedText";

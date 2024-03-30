@@ -1,6 +1,6 @@
 import { Input, InputGroup } from "@chakra-ui/react";
 import { useRef } from "react";
-import "./SearchBar.css";
+import "../styles/SearchBar.css";
 
 interface Props {
   onSearch: (searchText: string) => void;

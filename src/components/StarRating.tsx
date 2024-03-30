@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import "./StarRating.css";
+import "../styles/StarRating.css";
 interface Props {
   rating: number;
 }
