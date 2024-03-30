@@ -13,11 +13,12 @@ const CategoryDisplay = ({ onSelectCategory, selectedCategory }: Props) => {
   data.sort();
   if (error) return null;
   return (
-    <List padding="10px">
+    <List padding="10px" overflow="fit">
       <HStack
         display="flex"
+        flexWrap="wrap"
         flexDirection="row"
-        justifyContent="space-evenly"
+        justifyContent="center"
         alignItems="center"
         spacing="10px"
         divider={<StackDivider borderColor="gray.200" />}
