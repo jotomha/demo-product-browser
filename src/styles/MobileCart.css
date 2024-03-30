@@ -1,0 +1,14 @@
+.mobile_cart {
+  width: 90%;
+  height: 100%;
+  position: absolute;
+  transition-duration: 0.3s;
+  left: 10%;
+  top: 0px;
+  opacity: 1;
+}
+
+.cart_inactive {
+  opacity: 0.5;
+  transform: translate(100%, 0%);
+}
