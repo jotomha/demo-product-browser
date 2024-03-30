@@ -61,11 +61,13 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
               marginBottom={{ base: "5%", sm: "0px" }}
             >
               <StarRating rating={prod.rating}></StarRating>
-              <DiscountedText
-                normalPrice={prod.price}
-                discountPerc={prod.discountPercentage}
-                showDiscount={false}
-              ></DiscountedText>
+              <Box display="flex" flexDir="row" justifyContent="left">
+                <DiscountedText
+                  normalPrice={prod.price}
+                  discountPerc={prod.discountPercentage}
+                  showDiscount={false}
+                />
+              </Box>
             </Stack>
             <ShortenedText
               txt={prod.description}

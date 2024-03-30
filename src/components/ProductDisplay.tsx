@@ -14,7 +14,7 @@ const ProductDisplay = ({ prodReq, onAddItem }: Props) => {
   if (load) return <Spinner />;
   return (
     <SimpleGrid
-      columns={{ base: 1, xl: 2 }}
+      columns={{ base: 1, xl: 2, "2xl": 3 }}
       spacing={5}
       padding={{ base: "0px", lg: "10px" }}
       height="100%"
