@@ -1,4 +1,4 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import SavingBadge from "./SavingBadge";
 interface Props {
   normalPrice: number;
@@ -6,6 +6,7 @@ interface Props {
   discountPrice?: number;
   showDiscount: boolean;
   appendText?: string;
+  horizontal?: boolean;
 }
 const DiscountedText = ({
   normalPrice,
@@ -15,7 +16,11 @@ const DiscountedText = ({
   appendText,
 }: Props) => {
   return (
-    <HStack spacing="5%" alignItems="center">
+    <Stack
+      flexDir={{ base: "column-reverse", md: "row" }}
+      spacing="5%"
+      alignItems="center"
+    >
       {appendText && <Text>{appendText}</Text>}
       {showDiscount && (
         <SavingBadge
@@ -30,21 +35,23 @@ const DiscountedText = ({
           postText=" off!"
         />
       )}
-      <Text as="b">
-        $
-        {discountPrice
-          ? discountPrice
-          : Math.round(
-              normalPrice -
-                normalPrice * ((discountPerc ? discountPerc : 0) / 100)
-            )}
-      </Text>
-      {showDiscount && (
-        <Text as="s" fontWeight="normal" color="rgba(255, 255, 255, 0.7)">
-          ${normalPrice}
+      <Stack flexDir="row" spacing="0.45rem">
+        <Text as="b">
+          $
+          {discountPrice
+            ? discountPrice
+            : Math.round(
+                normalPrice -
+                  normalPrice * ((discountPerc ? discountPerc : 0) / 100)
+              )}
         </Text>
-      )}
-    </HStack>
+        {showDiscount && (
+          <Text as="s" fontWeight="normal" color="rgba(255, 255, 255, 0.7)">
+            ${normalPrice}
+          </Text>
+        )}
+      </Stack>
+    </Stack>
   );
 };
 

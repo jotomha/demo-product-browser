@@ -36,14 +36,17 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(1px)" />
-      <ModalContent width="40vw">
+      <ModalContent
+        width={{ base: "90vw", sm: "75vw", md: "60vw", lg: "40vw" }}
+      >
         <ModalHeader
           display="flex"
           flexDirection="row"
           justifyContent="space-between"
-          paddingRight="20%"
+          padding={{ base: "10px", sm: "15px", md: "20px" }}
+          paddingRight={{ base: "15%", sm: "15%", md: "15%" }} //Have to have overrides at each media rule for padding-right
         >
-          {prod.title}
+          <Text marginRight="5%">{prod.title}</Text>
           <DiscountedText
             normalPrice={prod.price}
             discountPerc={prod.discountPercentage}
