@@ -46,7 +46,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
           maxHeight={{ base: "100%" }}
           alt={prod.title}
         />
-        <Stack width="60%">
+        <Stack width="60%" className="see_more">
           <CardBody padding={{ base: "13px", lg: "20px" }} onClick={onOpen}>
             <Heading
               fontSize={{ base: "1.2rem", md: "1.5rem" }}
@@ -73,7 +73,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
               txt={prod.description}
               limit={25}
               appendText="(see more)"
-            ></ShortenedText>
+            />
           </CardBody>
           <CardFooter
             display="flex"
