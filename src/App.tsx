@@ -206,7 +206,7 @@ function App() {
         </GridItem>
       </Grid>
       <Box
-        className={`mobile_cart ${cartOpen ? "" : "cart_inactive"}`}
+        className={`mobile_cart ${cartOpen ? "cart_active" : ""}`}
         bgColor="rgba(31,31,43)"
         display={{ base: "flex", lg: "none" }}
         flexDirection="column"
