@@ -1,48 +1,40 @@
 import { useEffect, useState } from "react";
-import axios, { AxiosRequestConfig, CanceledError } from "axios";
+import axios, { CanceledError } from "axios";
 
-interface Response<T> {
-  count: number;
-  results: T[];
+interface Props {
+  endpoint: string;
+  dependencies: [];
 }
 
-const useApi = <T>(
-  endpoint: string,
-  deps?: any[],
-  requestConfig?: AxiosRequestConfig
-) => {
+// requests a generic object from api with endpoint
+const useApi = <T>({ endpoint, dependencies }: Props) => {
   const [load, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [data, setData] = useState<T[]>([]);
 
-  useEffect(
-    () => {
-      const api = axios.create({
-        baseURL: "https://dummyjson.com",
+  useEffect(() => {
+    const api = axios.create({
+      baseURL: "https://dummyjson.com",
+    });
+    const controller = new AbortController();
+    setLoading(true);
+    //Req data
+    api
+      .get<T[]>(endpoint, {
+        signal: controller.signal,
+      })
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+        setLoading(false);
       });
-      const controller = new AbortController();
-      setLoading(true);
-      //Req data
-      api
-        .get<Response<T>>(endpoint, {
-          signal: controller.signal,
-          ...requestConfig,
-        })
-        .then((res) => {
-          setData(res.data.results);
-          setLoading(false);
-          console.log(res.data);
-        })
-        .catch((err) => {
-          if (err instanceof CanceledError) return;
-          setError(err.message);
-          setLoading(false);
-        });
 
-      return () => controller.abort();
-    },
-    deps ? [...deps] : []
-  );
+    return () => controller.abort();
+  }, [...dependencies]);
 
   return { data, error, load };
 };

@@ -48,9 +48,8 @@ const useProducts = (request: ProductRequest) => {
         signal: controller.signal,
       })
       .then((res) => {
-        setData(res.data.products);
+        setData(res.data.products); //this is the one line that is different between useCategories and useProducts, and the reason i split them up
         setLoading(false);
-        console.log(res.data);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
