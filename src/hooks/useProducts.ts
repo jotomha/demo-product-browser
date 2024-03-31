@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { CanceledError } from "axios";
 import { ProductRequest } from "../App";
+import useApi from "./useApi";
 
 export interface ProdObj {
   id: number;
@@ -32,35 +33,10 @@ const useProducts = (request: ProductRequest) => {
     (request.page - 1) * request.prodPerPage
   }`;
 
-  const [load, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [data, setData] = useState<ProdObj[]>([]);
+  const { data, error, load } = useApi<ProductResponse>(endpoint, [request]);
+  const products = data ? data.products : undefined;
 
-  useEffect(() => {
-    const api = axios.create({
-      baseURL: "https://dummyjson.com",
-    });
-    const controller = new AbortController();
-    setLoading(true);
-    //Req data
-    api
-      .get<ProductResponse>(endpoint, {
-        signal: controller.signal,
-      })
-      .then((res) => {
-        setData(res.data.products); //this is the one line that is different between useCategories and useProducts, and the reason i split them up
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-
-    return () => controller.abort();
-  }, [request]);
-
-  return { data, error, load };
+  return { products, error, load };
 };
 
 export default useProducts;

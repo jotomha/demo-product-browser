@@ -13,7 +13,7 @@ interface Props {
 //automatically implements @media rules when given object sizing in the form of
 //{{base:, etc..}}
 const ProductDisplay = ({ prodReq, onAddItem }: Props) => {
-  const { data, load } = useProducts(prodReq);
+  const { products, load } = useProducts(prodReq);
 
   if (load) return <Spinner />;
   return (
@@ -24,7 +24,7 @@ const ProductDisplay = ({ prodReq, onAddItem }: Props) => {
       height="100%"
       overflowY="scroll"
     >
-      {data?.map((prod) => (
+      {products?.map((prod) => (
         <ProductCard
           prod={prod}
           key={prod.id}

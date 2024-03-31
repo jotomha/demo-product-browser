@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
 import axios, { CanceledError } from "axios";
 
-interface Props {
-  endpoint: string;
-  dependencies: [];
-}
-
 // requests a generic object from api with endpoint
-const useApi = <T>({ endpoint, dependencies }: Props) => {
+const useApi = <T>(endpoint: string, dependencies: any[]) => {
   const [load, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [data, setData] = useState<T[]>([]);
+  const [data, setData] = useState<T>();
 
   useEffect(() => {
     const api = axios.create({
@@ -20,7 +15,7 @@ const useApi = <T>({ endpoint, dependencies }: Props) => {
     setLoading(true);
     //Req data
     api
-      .get<T[]>(endpoint, {
+      .get<T>(endpoint, {
         signal: controller.signal,
       })
       .then((res) => {
