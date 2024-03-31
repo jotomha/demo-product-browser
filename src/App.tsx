@@ -1,5 +1,4 @@
 import { Box, Button, Grid, GridItem, Heading, Text } from "@chakra-ui/react";
-import "./App.css";
 import ProductDisplay from "./components/ProductDisplay";
 import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
@@ -37,7 +36,8 @@ function App() {
 
   return (
     <>
-      <Grid
+      <Grid //Chakra grid splits the available space into different labeled areas, and implements @media rules automatically to handle
+        //formatting of the grid at different screen sizes (base: is 0px, lg: is ~992px)
         templateAreas={{
           base: '"nav" "products"',
           lg: '"nav nav" "products cart"',
@@ -52,7 +52,7 @@ function App() {
         height="100%"
         width="100%"
       >
-        <GridItem
+        <GridItem //Main title area & category navigation
           area="nav"
           paddingTop="10px"
           maxHeight="300px"
@@ -65,7 +65,10 @@ function App() {
           <Heading marginBottom="12px" textAlign="center">
             Demo Product Browser
           </Heading>
-          <Box bgColor="rgba(0,0,0,0.3)" width="100%">
+          <Box /* Note: Chakra boxes are just basic divs */
+            bgColor="rgba(0,0,0,0.3)"
+            width="100%" /* Background box makes category display pop out more */
+          >
             <CategoryDisplay
               selectedCategory={productQuery.category}
               onSelectCategory={(t) =>
@@ -75,7 +78,7 @@ function App() {
           </Box>
         </GridItem>
 
-        <GridItem
+        <GridItem // This is the area for the product display, which contains a search bar, page navigator, and, at smaller resolutions, a button to open the cart.
           area="products"
           h="100%"
           w="100%"
@@ -91,7 +94,7 @@ function App() {
             <Heading fontSize="2xl" marginBottom="10px">
               Products
             </Heading>
-            <Button
+            <Button // Button only displays at smaller resolutions, once the "cart" area disappears from the main grid (implemented with @media rules provided by Chakra)
               display={{ base: "flex", lg: "none" }}
               marginBottom="10px"
               onClick={() => setCartOpen(true)}
@@ -99,7 +102,8 @@ function App() {
               Cart
             </Button>
           </Box>
-          <Box
+          <Box // This area holds search bar and page selecter. At smaller resolutions, flex changes to column display to give more space
+            // to the search bar.
             display="flex"
             flexDir={{ base: "column", sm: "row" }}
             justifyContent="space-between"
@@ -107,7 +111,9 @@ function App() {
             marginBottom="10px"
           >
             <Box
-              display={{ base: "block", md: "inline" }}
+              display={{ base: "block", md: "inline" }} //This is just a containing box for the search bar. Since search bar component is used
+              // in more places than just here, I didn't want to lock in a media rule for all search bars, just this main one. This box just forces search
+              // bar to stretch across whole display at smaller resolutions, and fit available space in larger.
               width={{ base: "100%" }}
             >
               <SearchBar
@@ -118,8 +124,9 @@ function App() {
                 width="100%"
               />
             </Box>
-            <Box width={{ base: "100%", sm: "0%" }} height="5px" />
-            <PageSelector
+            {/* Small spacing box to divide search bar and page selector vertically in smaller resolutions */}
+            <Box width={{ base: "100%", sm: "0%" }} height="10px" />
+            <PageSelector /* See page selector component */
               onLeft={() => {
                 setProductQuery({
                   ...productQuery,
@@ -137,34 +144,47 @@ function App() {
               onChangePerPage={(t: number) =>
                 setProductQuery({ ...productQuery, prodPerPage: t })
               }
+              /* End navigation box */
             />
           </Box>
-          <ProductDisplay
+          <ProductDisplay /* See component for implementation */
             prodReq={productQuery}
             onAddItem={(itemId: number, itemQuantity: number) => {
-              let postProducts = productToPost(cart.products);
+              let postProducts = productToPost(
+                /* See services */
+                cart.products
+              );
               if (postProducts) {
-                const index = postProducts.findIndex((p) => p.id === itemId);
+                const index = postProducts.findIndex(
+                  (p) => p.id === itemId
+                ); /* If the item we're changing quantity of already exists in the cart, 
+                don't push a new object to the array */
                 if (index < 0) {
+                  /* Item doesn't exist, so can use .push */
                   postProducts.push({
                     id: itemId,
                     quantity: itemQuantity,
                   });
                 } else {
+                  /* Item does exist, so override previous quantity */
                   postProducts[index] = {
                     ...postProducts[index],
                     quantity: postProducts[index].quantity + itemQuantity,
                   };
                 }
               } else {
+                // Only one item, so post products could be undefined, in which case .push() wouldn't work
                 postProducts = [{ id: itemId, quantity: itemQuantity }];
               }
-              getCart(setCart, postProducts);
+              getCart(setCart, postProducts); // Actually set the cart via the API
             }}
           />
         </GridItem>
 
-        <GridItem
+        <GridItem /* Final display area. This (and the following box that's rendered outside of the grid) is my biggest gripe with my design of this
+        webpage. There's a lot of repeated code between the two areas (since both are a cart display, but one is a pop out menu) and I just wasn't sure how to 
+        completely alter the structure of the cart so completely between the popout and the normal display that I fully divided the two areas. It's not that their 
+        components are different, it's that the formatting is different. */
           area="cart"
           display={{ base: "none", lg: "flex" }}
           flexDirection="column"
@@ -175,7 +195,7 @@ function App() {
           <Heading fontSize="2xl" margin="10px">
             Your Cart
           </Heading>
-          <CartDisplay
+          <CartDisplay /* See cartDisplay component */
             onChangeCart={(productList: CartProduct[]) =>
               getCart(setCart, productToPost(productList))
             }
@@ -186,8 +206,10 @@ function App() {
             flexDir="row"
             justifyContent="space-between"
             alignItems="center"
+            /* Renders the price and checkout /empty buttons */
           >
-            <Box>
+            <Box /* While I definitely could have used the discountedText component here, I wanted finer control over the formatting, so took this approach instead. */
+            >
               <Text>
                 Total price: ${cart.discountedTotal ? cart.discountedTotal : 0}
               </Text>
@@ -205,15 +227,24 @@ function App() {
           </Box>
         </GridItem>
       </Grid>
+
       <Box
-        className={`mobile_cart ${cartOpen ? "cart_active" : ""}`}
+        className={`mobile_cart ${
+          cartOpen ? "cart_active" : ""
+        }`} /* when cart is active, set the transform differently. transition dur set to 0.3s */
         bgColor="rgba(31,31,43)"
-        display={{ base: "flex", lg: "none" }}
+        display={{
+          base: "flex",
+          lg: "none",
+        }} /* don't bother rendering the card in higher resolutions */
         flexDirection="column"
         justifyContent="space-between"
         padding="5%"
       >
-        <Box display="flex" justifyContent="space-between">
+        <Box
+          display="flex"
+          justifyContent="space-between" /* Add a close cart button */
+        >
           <Heading fontSize="2xl" margin="10px">
             Your Cart
           </Heading>
@@ -234,7 +265,11 @@ function App() {
             cart={cart}
           />
         </Box>
-        <Box display="flex" flexDir="column" justifyContent="space-between">
+        <Box
+          display="flex"
+          flexDir="column"
+          justifyContent="space-between" /* Renders the price and checkout /empty buttons */
+        >
           <Box>
             <Text marginBottom="10px">
               Total price: ${cart.discountedTotal ? cart.discountedTotal : 0}
