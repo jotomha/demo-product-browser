@@ -24,9 +24,11 @@ interface Props {
   onClickAdd: (quantity: number) => void;
 }
 
+// Renders a product card. Nothing real fancy going on here. Returned as a fragment because
+//each product card has a modal associated with it, which is a separate componenet from the card.
 const ProductCard = ({ prod, onClickAdd }: Props) => {
   const [cartAddAmount, setCartAddAmount] = useState(1);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure(); // hook implemented in Chakra that works with the chakra modal component.
 
   return (
     <>

@@ -6,6 +6,7 @@ interface Props {
   onUpdateQuantity: (n: number) => void;
 }
 
+// Renders two left and right buttons that call onUpdateQuantity, and the quantity they are changing.
 const QuantityChanger = ({ quantity, onUpdateQuantity }: Props) => {
   return (
     <Box display="flex" flexDir="row" alignItems="center">

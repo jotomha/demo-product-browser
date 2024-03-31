@@ -25,14 +25,26 @@ interface Props {
   isOpen: boolean;
 }
 
+/* Passed a product, opens a pop up that provides a more in-depth view on the product, like 
+its full description, original price & percent off, category, image gallery, and brand. */
 const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
   const [imageIndex, setImageIndex] = useState(0);
+
+  //Two handlers for image gallery iteration. imageIndex needs to be a state to rerender the component on each
+  //page change.
   const onLeft = () => {
-    setImageIndex(clamp(0, prod.images.length - 1, imageIndex - 1));
+    setImageIndex(
+      clamp(
+        0,
+        prod.images.length - 1,
+        imageIndex - 1
+      ) /* see services for clamp defintion*/
+    );
   };
   const onRight = () => {
     setImageIndex(clamp(0, prod.images.length - 1, imageIndex + 1));
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(1px)" />
@@ -50,7 +62,7 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
           <DiscountedText
             normalPrice={prod.price}
             discountPerc={prod.discountPercentage}
-            showDiscount={true}
+            showDiscount={true} //Show full discount
           />
         </ModalHeader>
         <ModalCloseButton />
@@ -65,7 +77,12 @@ const FullProductModal = ({ prod, onClose, onAdd, isOpen }: Props) => {
           >
             &lt;
           </Button>
-          <Image src={prod.images[imageIndex]} alt={"Image not found."} />
+          <Image
+            src={prod.images[imageIndex]}
+            alt={
+              "Image"
+            } /*no image descriptions provided alongside image links*/
+          />
           <Button
             position="absolute"
             top="50%"

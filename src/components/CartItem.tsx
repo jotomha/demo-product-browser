@@ -1,6 +1,7 @@
-import { Box, Button, Card, Text } from "@chakra-ui/react";
+import { Box, Button, Card } from "@chakra-ui/react";
 import { CartProduct } from "./CartDisplay";
 import DiscountedText from "./DiscountedText";
+import QuantityChanger from "./QuantityChanger";
 
 interface Props {
   product: CartProduct;
@@ -18,9 +19,12 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }: Props) => {
       padding="10px"
       width="100%"
     >
+      {/*Delete button*/}
       <Button backgroundColor="#f1807e" onClick={onDelete}>
         X
       </Button>
+      {/*Chakra Box (renders as div) containing the rest of the items. 
+      Switches flex from column on phone screens to row on anything bigger for better display. */}
       <Box
         display="flex"
         flexDir={{ base: "column", sm: "row" }}
@@ -28,32 +32,17 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }: Props) => {
         alignItems="center"
         minWidth="80%"
       >
-        <Text textAlign="center" lineHeight="1">
+        <Box textAlign="center" lineHeight="1">
           {product.title}
-        </Text>
-        <Box display="flex" flexDir="row" alignItems="center">
-          <Button
-            height="20px"
-            width="20px"
-            margin="0px"
-            padding="0px"
-            paddingBottom="3px"
-            onClick={() => onUpdateQuantity(Math.max(1, product.quantity - 1))}
-          >
-            &lt;
-          </Button>
-          <Text margin="0px 5px 0px 5px">{product.quantity}</Text>
-          <Button
-            height="20px"
-            width="20px"
-            margin="0px"
-            padding="0px"
-            paddingBottom="3px"
-            onClick={() => onUpdateQuantity(product.quantity + 1)}
-          >
-            &gt;
-          </Button>
         </Box>
+        {/*Left and right buttons to change amount of product */}
+        <QuantityChanger
+          onUpdateQuantity={onUpdateQuantity}
+          quantity={product.quantity}
+        />
+        {/*Render the total discounted price of the products (calculated with quantity). 
+        I considered showing the savings you were making on each item here as well (which 
+        is why I just used a discountedText component) but the cartItem display became too crowded*/}
         <DiscountedText
           normalPrice={product.price}
           discountPerc={product.discountPercentage}

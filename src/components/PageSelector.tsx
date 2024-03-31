@@ -10,6 +10,10 @@ interface Props {
   perPage: number;
 }
 
+//Renders a page selector that lets you move left to right on the product browser.
+// Also renders a search bar that lets you change the number of products provided on
+//each page. Search bar goes away at lower resolutions to give more space to the main
+//navigation bar.
 const PageSelector = ({
   onLeft,
   onRight,

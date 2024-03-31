@@ -5,6 +5,8 @@ interface Props {
   appendText?: string;
 }
 
+// Does what the component is called. Limits a chunk of text to the number of characters designated by limit.
+// If provided, appends text on the line after the main text in a lighter color.
 const ShortenedText = ({ txt, limit, appendText = "" }: Props) => {
   return (
     <>
