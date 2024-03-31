@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import axios, { CanceledError } from "axios";
+import axios from "axios";
 
 // requests a generic object from api with endpoint
 const useApi = <T>(endpoint: string, dependencies: any[]) => {
-  const [load, setLoading] = useState(false);
+  const [load, setLoading] = useState(false); // these are states so that anytime something changes (like loading) the component using the data will re-render
   const [error, setError] = useState("");
   const [data, setData] = useState<T>();
 
@@ -13,7 +13,7 @@ const useApi = <T>(endpoint: string, dependencies: any[]) => {
     });
     const controller = new AbortController();
     setLoading(true);
-    //Req data
+    //Req data with axios
     api
       .get<T>(endpoint, {
         signal: controller.signal,
@@ -23,13 +23,12 @@ const useApi = <T>(endpoint: string, dependencies: any[]) => {
         setLoading(false);
       })
       .catch((err) => {
-        if (err instanceof CanceledError) return;
         setError(err.message);
         setLoading(false);
       });
 
-    return () => controller.abort();
-  }, [...dependencies]);
+    return () => controller.abort(); //cleanup
+  }, [...dependencies]); // refresh data anytime dependencies change
 
   return { data, error, load };
 };

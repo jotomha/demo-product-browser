@@ -23,7 +23,7 @@ interface ProductResponse {
   limit: number;
 }
 
-//
+//uses generic api
 const useProducts = (request: ProductRequest) => {
   const endpoint = `/products${
     request.category ? "/category/" + request.category : ""
