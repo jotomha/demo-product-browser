@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { ProdObj } from "../hooks/useProducts";
 import SearchBar from "./SearchBar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { stringToNumber } from "../services/stringToNumber";
 import ShortenedText from "./ShortenedText";
 import "../styles/ProductCard.css";
@@ -22,14 +22,19 @@ import DiscountedText from "./DiscountedText";
 interface Props {
   prod: ProdObj;
   onClickAdd: (quantity: number) => void;
+  setModalOpen: (v: boolean) => void;
 }
 
 // Renders a product card. Nothing real fancy going on here. Returned as a fragment because
 //each product card has a modal associated with it, which is a separate componenet from the card.
-const ProductCard = ({ prod, onClickAdd }: Props) => {
+const ProductCard = ({ prod, onClickAdd, setModalOpen }: Props) => {
   const [cartAddAmount, setCartAddAmount] = useState(1);
   const { isOpen, onOpen, onClose } = useDisclosure(); // hook implemented in Chakra that works with the chakra modal component.
 
+  useEffect(() => {
+    setModalOpen(isOpen); //Runs every time component re-renders
+  })
+  
   return (
     <>
       <Card
@@ -49,7 +54,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
           alt={prod.title}
         />
         <Stack width="60%" className="see_more">
-          <CardBody padding={{ base: "13px", lg: "20px" }} onClick={onOpen}>
+          <CardBody padding={{ base: "13px", lg: "20px" }} onClick={() => {onOpen(); setModalOpen(true)}}>
             <Heading
               fontSize={{ base: "1.2rem", md: "1.5rem" }}
               overflowWrap="break-word"
@@ -103,7 +108,7 @@ const ProductCard = ({ prod, onClickAdd }: Props) => {
       <FullProductModal
         prod={prod}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={() => {onClose(); setModalOpen(false);}}
         onAdd={onClickAdd}
       />
     </>

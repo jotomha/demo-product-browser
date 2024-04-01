@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import axios, { CanceledError } from "axios";
 import { ProductRequest } from "../App";
 import useApi from "./useApi";
 

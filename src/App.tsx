@@ -9,7 +9,6 @@ import { productToPost } from "./services/productToPost";
 import CategoryDisplay from "./components/CategoryDisplay";
 import SavingBadge from "./components/SavingBadge";
 import "./styles/MobileCart.css";
-import DiscountedText from "./components/DiscountedText";
 
 export interface ProductRequest {
   category: string | null;
@@ -27,6 +26,8 @@ function App() {
   });
   const [cartOpen, setCartOpen] = useState(false);
   const [cart, setCart] = useState<Cart>({} as Cart);
+  const [anyModalOpen, setAnyModalOpen] = useState(false);
+
 
   useEffect(() => {
     /* were you able to save cart states on the server, this could be used to initially load the cart with a certain id. Keep dependencies empty to only 
@@ -50,7 +51,7 @@ function App() {
         templateRows={{
           base: "0.15fr 1fr",
         }}
-        height="100%"
+        height={{base: "150%", sm: "100%"}}
         width="100%"
       >
         <GridItem //Main title area & category navigation
@@ -179,6 +180,7 @@ function App() {
               }
               getCart(setCart, postProducts); // Actually set the cart via the API
             }}
+            setModalOpen={setAnyModalOpen}
           />
         </GridItem>
 
@@ -235,12 +237,8 @@ function App() {
       <Box
         className={`mobile_cart ${
           cartOpen ? "cart_active" : ""
-        }`} /* when cart is active, set the transform differently. transition dur set to 0.3s */
+        } ${anyModalOpen ? "disabled" : ""}`} /* when cart is active, set the transform differently. transition dur set to 0.3s */
         bgColor="rgba(25,31,44)"
-        display={{
-          base: "flex",
-          lg: "none",
-        }} /* don't bother rendering the card in higher resolutions */
         flexDirection="column"
         justifyContent="space-between"
       >
