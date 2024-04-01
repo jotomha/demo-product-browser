@@ -232,7 +232,7 @@ function App() {
         className={`mobile_cart ${
           cartOpen ? "cart_active" : ""
         }`} /* when cart is active, set the transform differently. transition dur set to 0.3s */
-        bgColor="rgba(31,31,43)"
+        bgColor="rgba(25,31,44)"
         display={{
           base: "flex",
           lg: "none",
@@ -270,8 +270,13 @@ function App() {
           flexDir="column"
           justifyContent="space-between" /* Renders the price and checkout /empty buttons */
         >
-          <Box>
-            <Text marginBottom="10px">
+          <Box
+            display="flex"
+            flexDir="row"
+            alignItems="center"
+            marginBottom="10px"
+          >
+            <Text marginRight="20px">
               Total price: ${cart.discountedTotal ? cart.discountedTotal : 0}
             </Text>
             {cart.discountedTotal && (

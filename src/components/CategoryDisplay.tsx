@@ -11,7 +11,9 @@ interface Props {
 const CategoryDisplay = ({ onSelectCategory, selectedCategory }: Props) => {
   const { data, error, load } = useCategories();
   if (data) data.sort(); // Sort alphabetically for a better display
-  if (error) return <div>Failed to load categories.</div>;
+  if (error) {
+    return <div>Failed to load categories.</div>;
+  }
   return (
     <List padding="10px" overflow="fit">
       <HStack

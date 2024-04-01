@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { CanceledError } from "axios";
 
 // requests a generic object from api with endpoint
 const useApi = <T>(endpoint: string, dependencies: any[]) => {
@@ -23,6 +23,7 @@ const useApi = <T>(endpoint: string, dependencies: any[]) => {
         setLoading(false);
       })
       .catch((err) => {
+        if (err instanceof CanceledError) return null;
         setError(err.message);
         setLoading(false);
       });
