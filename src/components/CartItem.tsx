@@ -20,7 +20,7 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }: Props) => {
       width="100%"
     >
       {/*Delete button*/}
-      <Button backgroundColor="#f1807e" onClick={onDelete}>
+      <Button backgroundColor="#f1807e" onClick={onDelete} marginRight="10px">
         X
       </Button>
       {/*Chakra Box (renders as div) containing the rest of the items. 
@@ -32,7 +32,7 @@ const CartItem = ({ product, onDelete, onUpdateQuantity }: Props) => {
         alignItems="center"
         minWidth="80%"
       >
-        <Box textAlign="center" lineHeight="1">
+        <Box textAlign="center" overflowWrap="break-word" lineHeight="1">
           {product.title}
         </Box>
         {/*Left and right buttons to change amount of product */}

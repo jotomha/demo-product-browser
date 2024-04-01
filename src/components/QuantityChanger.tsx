@@ -11,7 +11,8 @@ const QuantityChanger = ({ quantity, onUpdateQuantity }: Props) => {
     <Box display="flex" flexDir="row" alignItems="center">
       <Button
         height="20px"
-        width="20px"
+        minWidth="25px"
+        maxWidth="30px"
         margin="0px"
         padding="0px"
         paddingBottom="3px"
@@ -22,7 +23,8 @@ const QuantityChanger = ({ quantity, onUpdateQuantity }: Props) => {
       <Box margin="0px 5px 0px 5px">{quantity}</Box>
       <Button
         height="20px"
-        width="20px"
+        minWidth="25px"
+        maxWidth="30px"
         margin="0px"
         padding="0px"
         paddingBottom="3px"

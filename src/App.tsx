@@ -9,6 +9,7 @@ import { productToPost } from "./services/productToPost";
 import CategoryDisplay from "./components/CategoryDisplay";
 import SavingBadge from "./components/SavingBadge";
 import "./styles/MobileCart.css";
+import DiscountedText from "./components/DiscountedText";
 
 export interface ProductRequest {
   category: string | null;
@@ -208,17 +209,20 @@ function App() {
             alignItems="center"
             /* Renders the price and checkout /empty buttons */
           >
-            <Box /* While I definitely could have used the discountedText component here, I wanted finer control over the formatting, so took this approach instead. */
+            <Box
+              maxWidth="33%" /* While I definitely could have used the discountedText component here, I wanted finer control over the formatting, so took this approach instead. */
             >
-              <Text>
+              <Text overflowWrap="anywhere">
                 Total price: ${cart.discountedTotal ? cart.discountedTotal : 0}
               </Text>
               {cart.discountedTotal && (
-                <SavingBadge
-                  preText="Saving $"
-                  number={(cart.total - cart.discountedTotal).toString()}
-                  postText="!"
-                />
+                <Box display={{ lg: "none", xl: "flex" }}>
+                  <SavingBadge
+                    preText="Saving $"
+                    number={(cart.total - cart.discountedTotal).toString()}
+                    postText="!"
+                  />
+                </Box>
               )}
             </Box>
             {/*Note: the functionality of these two buttons in this demo application is the same. In reality this would not be the case.*/}
