@@ -9,7 +9,6 @@ import { productToPost } from "./services/productToPost";
 import CategoryDisplay from "./components/CategoryDisplay";
 import SavingBadge from "./components/SavingBadge";
 import "./styles/MobileCart.css";
-import DiscountedText from "./components/DiscountedText";
 
 export interface ProductRequest {
   category: string | null;
