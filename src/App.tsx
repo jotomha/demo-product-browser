@@ -243,7 +243,6 @@ function App() {
         }} /* don't bother rendering the card in higher resolutions */
         flexDirection="column"
         justifyContent="space-between"
-        padding="5%"
       >
         <Box
           display="flex"
@@ -252,7 +251,9 @@ function App() {
           <Heading fontSize="2xl" margin="10px">
             Your Cart
           </Heading>
-          <Button onClick={() => setCartOpen(false)}>Close Cart</Button>
+          <Button onClick={() => setCartOpen(false)} minWidth="0px">
+            Close Cart
+          </Button>
         </Box>
         <Box
           bgColor="rgba(28,28,35)"

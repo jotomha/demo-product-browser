@@ -1,5 +1,6 @@
 .mobile_cart {
-  width: 95%;
+  width: 0%;
+  padding: 0%;
   height: 100%;
   position: absolute;
   transition-duration: 0.3s;
@@ -10,5 +11,7 @@
 
 .cart_active {
   opacity: 1;
+  padding: 5%;
+  width: 95%;
   transform: translate(-110%, 0%);
 }
