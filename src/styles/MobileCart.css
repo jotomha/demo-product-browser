@@ -5,10 +5,11 @@
   height: 100%;
   position: absolute;
   transition-duration: 0.3s;
-  left: 110%;
+  left: 120%;
   top: 0px;
   opacity: 0.5;
   display: flex;
+  overflow: hidden;
 }
 
 .cart_active {
@@ -16,9 +17,9 @@
   padding: 5%;
   width: 95%;
   max-width: 100%;
-  transform: translate(-110%, 0%);
+  transform: translate(-120%, 0%);
 }
 
  .disabled {
-  display: none;
+  display: none !important;
 }

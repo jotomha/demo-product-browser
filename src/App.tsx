@@ -49,7 +49,8 @@ function App() {
           lg: "0.75fr 0.25fr",
         }}
         templateRows={{
-          base: "0.15fr 1fr",
+          base: "0.30fr 1fr",
+          sm: "0.15fr 1fr"
         }}
         height={{base: "150%", sm: "100%"}}
         width="100%"
@@ -239,6 +240,7 @@ function App() {
           cartOpen ? "cart_active" : ""
         } ${anyModalOpen ? "disabled" : ""}`} /* when cart is active, set the transform differently. transition dur set to 0.3s */
         bgColor="rgba(25,31,44)"
+        display={{base:"flex", lg:"none"}}
         flexDirection="column"
         justifyContent="space-between"
       >
